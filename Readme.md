@@ -1,6 +1,12 @@
 # GitHub API viewer
-* To start the server just type `docker-compose up` in your
-terminal from the root of the project.
+This Java spring boot rest API application which is containerized
+using docker. This application is a simple example for a Java
+spring microservice. 
+  
+# Instructions
+* To start the docker container change the permission for the 
+file start.sh. This can be done using the `chmod +x ./start.sh`
+inside the terminal. 
 
-* To stop the server just press `ctrl + c` in the terminal and
-`docker-compose down`.  
+* Type `./start.sh` to run the container. It is important that
+docker, docker-compose and maven are installed.
