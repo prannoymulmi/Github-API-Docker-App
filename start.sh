@@ -5,5 +5,5 @@ mvn clean install
 
 sudo docker-compose down
 
-sudo docker-compose up
+sudo docker-compose up --build
 

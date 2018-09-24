@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/search")
 public class GithubUserRestController {
-    private GitHubAPIConsumer gitHubAPIConsumer;
+    private IGitHubAPIConsumer gitHubAPIConsumer;
 
     /**
      * Constructor injection preferred instead of the other types because it insures the paremeter is
      * initialized when the class is created to
      */
     @Autowired
-    public GithubUserRestController(GitHubAPIConsumer gitHubAPIConsumer) {
+    public GithubUserRestController(IGitHubAPIConsumer gitHubAPIConsumer) {
         this.gitHubAPIConsumer = gitHubAPIConsumer;
     }
 
