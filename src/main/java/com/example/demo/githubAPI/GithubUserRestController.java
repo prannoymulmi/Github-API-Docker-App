@@ -1,6 +1,7 @@
 package com.example.demo.githubAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,16 @@ public class GithubUserRestController {
         this.gitHubAPIConsumer = gitHubAPIConsumer;
     }
 
+    /**
+     * Caching done with number and language so that key is unique for the page and language
+     * TODO: Implement the page_items and add it in the cache key
+     * @param language
+     * @param page
+     * @param pageItems
+     * @return
+     */
     @RequestMapping(value = "/byLanguage", method = RequestMethod.GET)
+    @Cacheable(value = "post-single", key = "#page + #language")
     public String test(@RequestParam(value = "language") String language,
         @RequestParam(value = "page") int page,
         @RequestParam(value = "page_items", required = false) String pageItems) {

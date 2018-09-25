@@ -1,4 +1,9 @@
 version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   githubapi:
     build: .
@@ -6,3 +11,19 @@ services:
       - 8080:8080
     expose:
       - 8080
+    networks:
+    - app-tier
+    links:
+      - redis
+
+  redis:
+    image: 'bitnami/redis:latest'
+    hostname: redis
+    environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      -  ./redis:/data
+    networks:
+    - app-tier
+    ports:
+    - '6379:6379'

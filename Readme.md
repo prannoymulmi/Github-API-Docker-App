@@ -1,5 +1,5 @@
 # GitHub API viewer
-This Java spring boot rest API application which is containerized
+This Java spring boot (v 2.0.5.RELEASE) rest API application which is containerized
 using docker. This application is a simple example for a Java
 spring microservice. 
   
