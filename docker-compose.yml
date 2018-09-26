@@ -17,11 +17,12 @@ services:
       - redis
 
   redis:
-    image: 'bitnami/redis:latest'
+    #image: 'bitnami/redis:latest'
+    build: redis/.
     environment:
     - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      -  ./redis:/data
+      - /redis/data:/bitnami/redis/data
     networks:
     - app-tier
     expose:
