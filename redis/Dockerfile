@@ -59,9 +59,11 @@ RUN set -ex; \
 	redis-server --version
 
 RUN mkdir /data && chown redis:redis /data
+RUN mkdir -p /opt/bitnami/redis/etc && chown redis:redis /opt/bitnami/redis/etc
 VOLUME /data
 WORKDIR /data
 
+COPY redis.conf /opt/bitnami/redis/etc/
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
