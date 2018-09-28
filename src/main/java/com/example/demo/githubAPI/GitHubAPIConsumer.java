@@ -44,7 +44,9 @@ public class GitHubAPIConsumer implements IGitHubAPIConsumer {
         List<GithubUserApiDTO> processedUsers = new ArrayList<>();
 
         optionalUnprocessedResults = Optional.ofNullable(unprocessedResults);
-        if(!optionalUnprocessedResults.isPresent()) {
+
+        //The Optional used to check for nulls
+        if (!optionalUnprocessedResults.isPresent()) {
             return dtoToJsonConverter.convert(GitHubAPIConstants.GIT_HUB_REQUEST_FAILURE_MESSAGE);
         }
 

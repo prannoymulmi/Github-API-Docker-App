@@ -1,7 +1,10 @@
-package com.example.demo.githubAPI;
+package com.example.demo.githubAPI.controllers;
 
+import com.example.demo.githubAPI.IGitHubAPIConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,9 +34,11 @@ public class GithubUserRestController {
      */
     @RequestMapping(value = "/byLanguage", method = RequestMethod.GET)
     @Cacheable(value = "post-single", key = "#page + #language")
-    public String test(@RequestParam(value = "language") String language,
+    public ResponseEntity<String> getUsers(@RequestParam(value = "language") String language,
         @RequestParam(value = "page") int page,
         @RequestParam(value = "page_items", required = false) String pageItems) {
-        return gitHubAPIConsumer.getGitHubUserByProgrammingLanguage(language, page);
+
+        String json = gitHubAPIConsumer.getGitHubUserByProgrammingLanguage(language, page);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 }
