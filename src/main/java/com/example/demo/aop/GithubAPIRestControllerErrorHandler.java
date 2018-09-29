@@ -24,7 +24,7 @@ public class GithubAPIRestControllerErrorHandler {
      * @return
      */
     @Around("execution(* com.example.demo.githubAPI.controllers.*.*(..))")
-    public ResponseEntity<String> afterThrowing(ProceedingJoinPoint p) {
+    public ResponseEntity<String> handleGitHubRestControllerException(ProceedingJoinPoint p) {
         ErrorDTO error = new ErrorDTO();
         try{
             return (ResponseEntity<String>)p.proceed();
@@ -34,9 +34,7 @@ public class GithubAPIRestControllerErrorHandler {
             if(isHttpException) {
                return handleHttpClientException(ex);
             }
-            String finalErrorMessage = StringUtils.join(GitHubAPIConstants.INTERNAL_ERROR_MSG, " ",ex.getMessage());
-            error.setErrorMsg(finalErrorMessage);
-
+            error.setErrorMsg(ex.getMessage());
             return new ResponseEntity<>(error.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -46,7 +44,7 @@ public class GithubAPIRestControllerErrorHandler {
         HttpClientErrorException clientErrorException = (HttpClientErrorException) ex;
         Logger logger = LoggerFactory.getLogger(this.getClass());
         logger.error(clientErrorException.toString());
-        error.setErrorMsg(GitHubAPIConstants.QUERY_NOT_FOUND_MSG);
-        return new ResponseEntity<>(error.toString(), HttpStatus.NOT_FOUND);
+        error.setErrorMsg(clientErrorException.getMessage());
+        return new ResponseEntity<>(error.toString(), clientErrorException.getStatusCode());
     }
 }

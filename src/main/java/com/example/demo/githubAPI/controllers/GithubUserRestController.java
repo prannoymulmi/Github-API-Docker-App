@@ -27,9 +27,7 @@ public class GithubUserRestController {
 
     @RequestMapping(value = "/byLanguage", method = RequestMethod.GET)
     public ResponseEntity<String> getUsers(@RequestParam(value = "language") String language,
-        @RequestParam(value = "page") int page,
-        @RequestParam(value = "page_items", required = false) String pageItems) {
-
+        @RequestParam(value = "page") int page) {
         String json = gitHubAPIConsumer.getGitHubUserByProgrammingLanguage(language, page);
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
