@@ -5,6 +5,7 @@ import com.example.demo.dto.GithubUserApiDTO;
 import com.example.demo.dto.GithubUserTotalDTO;
 import com.example.demo.utils.IDTOToJsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -27,6 +28,14 @@ public class GitHubAPIConsumer implements IGitHubAPIConsumer {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Caching done with number and language so that key is unique for the page and language
+     * TODO: Implement the page_items and add it in the cache key
+     * @param language
+     * @param page
+     * @return
+     */
+    @Cacheable(value = "post-single", key = "#page + #language")
     @Override
     public String getGitHubUserByProgrammingLanguage(String language, int page) {
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(GitHubAPIConstants.GIT_HUB_BASE_URL)

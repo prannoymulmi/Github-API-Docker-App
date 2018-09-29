@@ -29,6 +29,13 @@ the multiple calls and presents the result.
 The result from the end point `http:localhost:8080/search/byLanguage?language=java&page=10`
 is presented above. 
 
+### Error handling using AOP
+In order to make the code coherent as possible the error handling is executed
+using the **Spring AOP**. The classes in the package ` com.example.demo.githubAPI.controllers`
+are intercepted using AOP and handled by returning the corresponding ResponseEntity
+message. For example if a query searched is not found a 404 status code with
+the error message will be returned for all the available controller in the package.
+ 
 ### Caching using redis
 The application also uses redis to cache the results from the API.
 The caching enables an increase in the overall performance when 
@@ -59,3 +66,7 @@ inside the terminal.
 
 #### Dev tips
 * To go inside the container type `docker exec -ti <CONTAINER_NAME> /bin/sh`
+* To enable caching during dev add `spring.cache.type=redis` in the `application-dev.properties`
+file. This file is located inside the resources. Then before starting the server
+start the redis server. This can be done using the command `docker-compose up redis` 
+from the root folder. 
