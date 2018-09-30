@@ -70,3 +70,5 @@ inside the terminal.
 file. This file is located inside the resources. Then before starting the server
 start the redis server. This can be done using the command `docker-compose up redis` 
 from the root folder. 
+#### Useful Links
+[Spring Boot microservice] https://github.com/building-microservices-with-spring-boot
