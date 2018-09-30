@@ -13,7 +13,7 @@ the multiple calls and presents the result.
 ```
 [
   {
-    "name": "test",
+    "name": "tests",
     "url": "https://api.github.com/users/test",
     "login": "tesst",
     "avatar_url": "https://avatars3.githubusercontent.com/u/test?v=4"
