@@ -1,13 +1,10 @@
 package com.example.demo.aop;
 
-import com.example.demo.constants.GitHubAPIConstants;
 import com.example.demo.dto.ErrorDTO;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.apachecommons.CommonsLog;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @Aspect
 @Configuration
+@CommonsLog
 public class GithubAPIRestControllerErrorHandler {
 
     /**
@@ -42,8 +40,7 @@ public class GithubAPIRestControllerErrorHandler {
     private ResponseEntity<String> handleHttpClientException(Throwable ex) {
         ErrorDTO error = new ErrorDTO();
         HttpClientErrorException clientErrorException = (HttpClientErrorException) ex;
-        Logger logger = LoggerFactory.getLogger(this.getClass());
-        logger.error(clientErrorException.toString());
+        log.error(clientErrorException.toString());
         error.setErrorMsg(clientErrorException.getMessage());
         return new ResponseEntity<>(error.toString(), clientErrorException.getStatusCode());
     }
